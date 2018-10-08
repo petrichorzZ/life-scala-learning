@@ -20,7 +20,7 @@ class IndexRoute extends BaseDirectives with ResultWrapper {
         post {
           entity(as[String]) {
             request =>
-              complete(successful(code = null, message = "POST", data = request))
+              complete(successful(message = "POST", data = request))
           }
         } ~
           get {

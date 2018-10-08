@@ -1,6 +1,8 @@
 group 'com.xxx.learn'
 version '1.0-SNAPSHOT'
 
+apply from: "./deploy.gradle"
+
 dependencies {
 
     compile "com.typesafe:config:${typesafeConfigVersion}"

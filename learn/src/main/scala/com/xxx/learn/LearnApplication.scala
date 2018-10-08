@@ -13,7 +13,7 @@ import com.xxx.learn.handler.RouteHandler
 import com.zz.core.conf.ServerConf
 import com.zz.core.util.JsonParse
 import com.zz.core.wrapper.ResultWrapper
-import org.slf4j.LoggerFactory
+import org.slf4j.{Logger, LoggerFactory}
 
 import scala.util.{Failure, Success}
 
@@ -22,7 +22,7 @@ import scala.util.{Failure, Success}
   */
 object LearnApplication extends App with ResultWrapper {
 
-  val logger = LoggerFactory.getLogger(getClass)
+  val logger: Logger = LoggerFactory.getLogger(getClass)
 
   import com.xxx.learn.util.ExecutionService._
 
@@ -37,7 +37,7 @@ object LearnApplication extends App with ResultWrapper {
   private def initLogConfig(): Unit = {
     val logConfig = new File("./logback.xml")
     if (logConfig.exists() && logConfig.canRead) {
-      val logContext = LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext]
+      val logContext: LoggerContext = LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext]
       val config = new JoranConfigurator()
       config.setContext(logContext)
       logContext.reset()

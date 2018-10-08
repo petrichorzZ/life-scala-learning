@@ -1,7 +1,6 @@
 apply plugin: 'maven-publish'
 
 ext {
-
     GROUP_ID = project.group
     ARTIFACT_ID = project.archivesBaseName
     VERSION = project.version

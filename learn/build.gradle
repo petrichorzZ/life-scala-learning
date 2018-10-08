@@ -1,6 +1,6 @@
 group 'com.xxx.learn'
 version '1.0-SNAPSHOT'
-archivesBaseName = 'life-scala-akka'
+archivesBaseName = 'life-scala-learn'
 
 dependencies {
     compile project(":core")

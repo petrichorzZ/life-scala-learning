@@ -1,11 +1,10 @@
-import org.junit.Test
 
 /**
   * Created by tao.zeng on 2018/10/8.
   */
 class CodeGenerator {
 
-  @Test
+  // @org.junit.Test
   def generator(): Unit = {
     val jdbcUrl = "jdbc:mysql://localhost:3306/life-mail?characterEncoding=utf8&useSSL=false"
     // Array(profile, jdbcDriver, url, outputFolder, pkg, user, password)

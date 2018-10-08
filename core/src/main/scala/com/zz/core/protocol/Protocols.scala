@@ -5,7 +5,7 @@ package com.zz.core.protocol
   */
 object Protocols {
 
-  case class ResponseWrapper(code: String, message: String, data: Any)
+  case class ResponseWrapper(code: Int, message: String, data: Any)
 
   case class PageWrapper(current: Int, size: Int, total: Long, data: Any)
 }

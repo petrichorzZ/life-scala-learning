@@ -1,0 +1,1 @@
+https://github.com/mesosphere/jackson-case-class-module
