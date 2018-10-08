@@ -1,0 +1,27 @@
+group 'com.xxx.learn'
+version '1.0-SNAPSHOT'
+archivesBaseName = 'life-scala-akka'
+
+dependencies {
+    compile project(":core")
+}
+
+String mainClassName = "com.xxx.learn.LearnApplication"
+
+// copy jar target
+task copyJar(type: Copy) {
+    from configurations.runtime
+    into('build/libs/lib')
+}
+
+jar {
+    baseName "${archivesBaseName}"
+    version "${version}"
+    String some = ''
+    // 遍历项目的所有依赖的jar包赋值给变量someString
+    configurations.runtime.each { some = some + " lib/" + it.name }
+    manifest {
+        attributes 'Main-Class': mainClassName
+        attributes 'Class-Path': some
+    }
+}.dependsOn(copyJar)

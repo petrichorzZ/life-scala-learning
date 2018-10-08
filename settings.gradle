@@ -1,0 +1,5 @@
+rootProject.name = 'life-scala-learning'
+include 'core'
+include 'code-generator'
+include 'learn'
+

@@ -1,0 +1,17 @@
+group 'com.xxx.learn'
+version '1.0-SNAPSHOT'
+
+dependencies {
+
+    compile "com.typesafe:config:${typesafeConfigVersion}"
+
+    // common
+    compile "commons-io:commons-io:2.4"
+    compile "org.apache.commons:commons-lang3:3.7"
+
+    compile "com.google.code.gson:gson:${gsonVersion}"
+    compile "com.alibaba:fastjson:${fastjsonVersion}"
+
+    // ioc
+    compile "com.google.inject:guice:4.1.0"
+}
