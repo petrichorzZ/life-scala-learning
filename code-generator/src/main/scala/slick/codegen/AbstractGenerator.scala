@@ -1,7 +1,6 @@
 package slick.codegen
 
 import slick.ast.ColumnOption
-import slick.codegen.CommonUtils._
 import slick.model.ForeignKeyAction
 import slick.relational.RelationalProfile
 import slick.sql.SqlProfile
@@ -441,9 +440,8 @@ abstract class AbstractGenerator[Code, TermName, TypeName](model: m.Model)
       def rawName = disambiguateTerm("index" + id)
 
       def doc: String = ""
-
-      //        (if (model.unique) "Uniqueness " else "") +
-      //          "Index over " + columns.map(_.name).mkString("(", ",", ")") + s" (database name ${dbName})"
+//        (if (model.unique) "Uniqueness " else "") +
+//          "Index over " + columns.map(_.name).mkString("(", ",", ")") + s" (database name ${dbName})"
     }
 
     /** Common interface for any kind of definition within the generated code */
@@ -578,4 +576,23 @@ trait GeneratorHelpers[Code, TermName, TypeName] {
 
   /** Generates code for a qualified Scala type */
   def parseType(tpe: String): Code
+
+  /** Slick code generator string extension methods. (Warning: Not unicode-safe, uses String#apply) */
+  implicit class StringExtensions(val str: String) {
+    /** Lowercases the first (16 bit) character. (Warning: Not unicode-safe, uses String#apply) */
+    final def uncapitalize: String = str(0).toString.toLowerCase + str.tail
+
+    /**
+      * Capitalizes the first (16 bit) character of each word separated by one or more '_'. Lower cases all other characters.
+      * Removes one '_' from each sequence of one or more subsequent '_' (to avoid collision).
+      * (Warning: Not unicode-safe, uses String#apply)
+      */
+    final def toCamelCase: String
+    = str
+      .split("_")
+      .map { case "" => "_" case s => s } // avoid possible collisions caused by multiple '_'
+      .map(_.capitalize)
+      .mkString("")
+  }
+
 }

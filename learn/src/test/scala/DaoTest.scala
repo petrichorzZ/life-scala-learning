@@ -1,4 +1,3 @@
-import com.xxx.learn.dao.MailInfoDao
 import org.junit.Test
 
 /**
@@ -8,7 +7,5 @@ class DaoTest {
 
   @Test
   def test1(): Unit = {
-    new MailInfoDao().list()
   }
-
 }

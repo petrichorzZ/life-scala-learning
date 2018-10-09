@@ -7,4 +7,5 @@ apply from: "../slick.gradle"
 
 dependencies {
     compile project(":core")
+    // compile "com.typesafe.slick:slick-codegen_2.11:3.2.3"
 }

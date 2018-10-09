@@ -31,6 +31,7 @@ trait OutputHelpers {
   /** Writes given content to a file.
     * Ensures the file ends with a newline character.
     *
+    * @group Output
     */
   def writeStringToFile(content: String, folder: String, pkg: String, fileName: String): Unit = {
     val folder2: String = folder + "/" + (pkg.replace(".", "/")) + "/"
@@ -51,6 +52,7 @@ trait OutputHelpers {
     * Creates a folder structure for the given package inside the given srcFolder
     * and places the new file inside or overrides the existing one.
     *
+    * @group Output
     * @param folder    target folder, in which the package structure folders are placed
     * @param profile   Slick profile that is imported in the generated package (e.g. slick.jdbc.H2Profile)
     * @param pkg       Scala package the generated code is placed in (a subfolder structure will be created within srcFolder)
@@ -66,6 +68,7 @@ trait OutputHelpers {
     * Creates a folder structure for the given package inside the given srcFolder
     * and places the new files inside or overrides the existing one.
     *
+    * @group Output
     * @param folder    target folder, in which the output files are placed
     * @param profile   Slick profile that is imported in the generated package (e.g. scala.slick.driver.H2Driver)
     * @param pkg       Scala package the generated code is placed in (a subfolder structure will be created within srcFolder)
@@ -87,6 +90,7 @@ trait OutputHelpers {
   /**
     * Generates code providing the data model as trait and object in a Scala package
     *
+    * @group Basic customization overrides
     * @param profile   Slick profile that is imported in the generated package (e.g. slick.jdbc.H2Profile)
     * @param pkg       Scala package the generated code is placed in
     * @param container The name of a trait and an object the generated code will be placed in within the specified package.
@@ -110,6 +114,7 @@ object ${container} {
   /**
     * Generates code providing the stand-alone slick data model for immediate use.
     *
+    * @group Basic customization overrides
     * @param profile   Slick profile that is imported in the generated package (e.g. scala.slick.driver.H2Driver)
     * @param pkg       Scala package the generated code is placed in
     * @param container The name of a trait and an object the generated code will be placed in within the specified package.
@@ -120,20 +125,19 @@ object ${container} {
 
 trait ${container} {
 
-  val profile: slick.jdbc.JdbcProfile
+  lazy val profile: slick.jdbc.JdbcProfile = slick.jdbc.MySQLProfile
 
 ${indentTableQuery(code)}
 }
 
-object ${container} extends ${container} {
-  lazy val profile = slick.jdbc.MySQLProfile
-}
+object ${container} extends ${container} {}
 """.trim()
   }
 
   /**
     * Generates code for the given table. The tableName and tableCode parameters should come from the #codePerTable map.
     *
+    * @group Basic customization overrides
     * @param tableName : the name of the table
     * @param tableCode : the generated code for the table.
     * @param pkg       Scala package the generated code is placed in
