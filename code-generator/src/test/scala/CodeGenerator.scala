@@ -7,11 +7,13 @@ class CodeGenerator {
   // @org.junit.Test
   def generator(): Unit = {
     val jdbcUrl = "jdbc:mysql://localhost:3306/life-mail?characterEncoding=utf8&useSSL=false"
-    // Array(profile, jdbcDriver, url, outputFolder, pkg, user, password)
+    val dbUser = "root"
+    val dbPassword = "root"
     val as = Array[String](
       "slick.jdbc.MySQLProfile",
       "com.mysql.jdbc.Driver",
-      jdbcUrl, "./code", "com.xxx.learn.dao", "root", "root")
+      jdbcUrl, "./code", "com.xxx.learn.dao", dbUser, dbPassword, "true", "slick.codegen.SourceCodeGenerator", "true")
     slick.codegen.SourceCodeGenerator.main(as)
+
   }
 }

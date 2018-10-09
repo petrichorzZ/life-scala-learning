@@ -6,4 +6,5 @@ jar.enabled = false
 apply from: "../slick.gradle"
 
 dependencies {
+    compile project(":core")
 }

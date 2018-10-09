@@ -2,6 +2,8 @@ group 'com.xxx.learn'
 version '1.0-SNAPSHOT'
 archivesBaseName = 'life-scala-learn'
 
+apply from: "../slick.gradle"
+
 dependencies {
     compile project(":core")
 }

@@ -97,18 +97,18 @@ trait OutputHelpers {
     */
   def packageCode(profile: String, pkg: String, container: String, parentType: Option[String]): String = {
     s"""
-package $pkg
+  package com.xxx.learn.entity
 
-import s.com.eoi.util.DatabaseService
+  import com.xxx.learn.datasource.DatabaseService
 
-object ${container} {
+  object $container {
 
-  ${indentCaseClass(code)}
+    ${indentCaseClass(code)}
 
 
-  ${indent(code)}
-}
-      """.trim()
+    ${indent(code)}
+  }
+        """.trim()
   }
 
   /**
@@ -121,17 +121,17 @@ object ${container} {
     */
   def packageContainerCode(profile: String, pkg: String, container: String = "Tables"): String = {
     //    val mixinCode = codePerTable.keys.toList.sorted.map(tableName => s"${handleQuotedNamed(tableName) }").mkString("extends ", "\n  with ", "")
-    s"""package $pkg
+    s"""package com.xxx.learn.entity
 
-trait ${container} {
+  trait $container {
 
-  lazy val profile: slick.jdbc.JdbcProfile = slick.jdbc.MySQLProfile
+    lazy val profile: slick.jdbc.JdbcProfile = slick.jdbc.MySQLProfile
 
-${indentTableQuery(code)}
-}
+  ${indentTableQuery(code)}
+  }
 
-object ${container} extends ${container} {}
-""".trim()
+  object $container extends $container {}
+  """.trim()
   }
 
   /**
@@ -145,13 +145,13 @@ object ${container} extends ${container} {}
     */
   def packageTableCode(tableName: String, tableCode: String, pkg: String, container: String): String = {
     s"""
-package $pkg
+  package com.xxx.learn.entity
 
-${indentCaseClass(tableCode)}
+  ${indentCaseClass(tableCode)}
 
-import slick.jdbc.JdbcProfile
+  import slick.jdbc.JdbcProfile
 
-${indent(tableCode)}
-""".trim()
-  }
+  ${indent(tableCode)}
+  """.trim()
+    }
 }

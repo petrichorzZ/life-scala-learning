@@ -1,9 +1,9 @@
 package com.xxx.learn.handler
 
+import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import com.xxx.learn.common.{CrossSupport, LearnConst}
-import akka.http.scaladsl.server.Directives._
-import com.xxx.learn.route.IndexRoute
+import com.xxx.learn.route.{IndexRoute, MailRoute}
 import org.slf4j.LoggerFactory
 
 /**
@@ -16,7 +16,7 @@ object RouteHandler extends CrossSupport {
     extractAuth(LearnConst.AUTH) {
       auth => {
         logger.info(s"auth:$auth")
-        new IndexRoute().route ~ new IndexRoute().route
+        new IndexRoute().route ~ new MailRoute().route
       }
     }
   }
