@@ -2,9 +2,10 @@ package com.xxx.learn.entity
 
 trait BaseEntityTable {
 
-  lazy val profile: slick.jdbc.JdbcProfile = slick.jdbc.MySQLProfile
+  val profile: slick.jdbc.JdbcProfile
 
-  val mailInfos = new MailInfoDAO(profile).mailInfos
 }
 
-object BaseEntityTable extends BaseEntityTable {}
+object BaseEntityTable extends BaseEntityTable {
+  lazy val profile = slick.jdbc.MySQLProfile
+}

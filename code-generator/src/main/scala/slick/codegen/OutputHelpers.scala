@@ -31,7 +31,6 @@ trait OutputHelpers {
   /** Writes given content to a file.
     * Ensures the file ends with a newline character.
     *
-    * @group Output
     */
   def writeStringToFile(content: String, folder: String, pkg: String, fileName: String): Unit = {
     val folder2: String = folder + "/" + (pkg.replace(".", "/")) + "/"
@@ -52,7 +51,6 @@ trait OutputHelpers {
     * Creates a folder structure for the given package inside the given srcFolder
     * and places the new file inside or overrides the existing one.
     *
-    * @group Output
     * @param folder    target folder, in which the package structure folders are placed
     * @param profile   Slick profile that is imported in the generated package (e.g. slick.jdbc.H2Profile)
     * @param pkg       Scala package the generated code is placed in (a subfolder structure will be created within srcFolder)
@@ -68,7 +66,6 @@ trait OutputHelpers {
     * Creates a folder structure for the given package inside the given srcFolder
     * and places the new files inside or overrides the existing one.
     *
-    * @group Output
     * @param folder    target folder, in which the output files are placed
     * @param profile   Slick profile that is imported in the generated package (e.g. scala.slick.driver.H2Driver)
     * @param pkg       Scala package the generated code is placed in (a subfolder structure will be created within srcFolder)
@@ -90,54 +87,53 @@ trait OutputHelpers {
   /**
     * Generates code providing the data model as trait and object in a Scala package
     *
-    * @group Basic customization overrides
     * @param profile   Slick profile that is imported in the generated package (e.g. slick.jdbc.H2Profile)
     * @param pkg       Scala package the generated code is placed in
     * @param container The name of a trait and an object the generated code will be placed in within the specified package.
     */
   def packageCode(profile: String, pkg: String, container: String, parentType: Option[String]): String = {
     s"""
-  package com.xxx.learn.entity
+package $pkg
 
-  import com.xxx.learn.datasource.DatabaseService
+import com.xxx.learn.datasource.DatabaseService
 
-  object $container {
+object ${container} {
 
-    ${indentCaseClass(code)}
+  ${indentCaseClass(code)}
 
 
-    ${indent(code)}
-  }
-        """.trim()
+  ${indent(code)}
+}
+      """.trim()
   }
 
   /**
     * Generates code providing the stand-alone slick data model for immediate use.
     *
-    * @group Basic customization overrides
     * @param profile   Slick profile that is imported in the generated package (e.g. scala.slick.driver.H2Driver)
     * @param pkg       Scala package the generated code is placed in
     * @param container The name of a trait and an object the generated code will be placed in within the specified package.
     */
   def packageContainerCode(profile: String, pkg: String, container: String = "Tables"): String = {
     //    val mixinCode = codePerTable.keys.toList.sorted.map(tableName => s"${handleQuotedNamed(tableName) }").mkString("extends ", "\n  with ", "")
-    s"""package com.xxx.learn.entity
+    s"""package $pkg
 
-  trait $container {
+trait ${container} {
 
-    lazy val profile: slick.jdbc.JdbcProfile = slick.jdbc.MySQLProfile
+  val profile: slick.jdbc.JdbcProfile
 
-  ${indentTableQuery(code)}
-  }
+${indentTableQuery(code)}
+}
 
-  object $container extends $container {}
-  """.trim()
+object ${container} extends ${container} {
+  lazy val profile = slick.jdbc.MySQLProfile
+}
+""".trim()
   }
 
   /**
     * Generates code for the given table. The tableName and tableCode parameters should come from the #codePerTable map.
     *
-    * @group Basic customization overrides
     * @param tableName : the name of the table
     * @param tableCode : the generated code for the table.
     * @param pkg       Scala package the generated code is placed in
@@ -145,13 +141,13 @@ trait OutputHelpers {
     */
   def packageTableCode(tableName: String, tableCode: String, pkg: String, container: String): String = {
     s"""
-  package com.xxx.learn.entity
+package $pkg
 
-  ${indentCaseClass(tableCode)}
+${indentCaseClass(tableCode)}
 
-  import slick.jdbc.JdbcProfile
+import slick.jdbc.JdbcProfile
 
-  ${indent(tableCode)}
-  """.trim()
-    }
+${indent(tableCode)}
+""".trim()
+  }
 }

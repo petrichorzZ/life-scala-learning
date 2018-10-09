@@ -1,5 +1,6 @@
 package slick.codegen
 
+import slick.codegen.CommonUtils._
 import slick.ast.ColumnOption
 import slick.model.ForeignKeyAction
 import slick.relational.RelationalProfile
@@ -237,8 +238,6 @@ ${result(rearranged)} // putting AutoInc last
 
       //      def code = s"  val ${name.head.toLower + name.tail}s = new TableQuery(tag => new ${TableClass.name}(tag))\n"
       def code = s"  val ${name.head.toLower + name.tail}s = new ${name}DAO(profile).${name.head.toLower + name.tail}s\n"
-
-      println(code)
     }
 
     class ColumnDef(model: m.Column) extends super.ColumnDef(model) {
@@ -278,25 +277,8 @@ ${result(rearranged)} // putting AutoInc last
 
       // Explicit type to allow overloading existing Slick method names.
       // Explicit type argument for better error message when implicit type mapper not found.
-      val columnName = model.name
-        .toLowerCase()
-        .split("_") match {
-        case a if a.length > 1 =>
-          val c = a.tail // avoid possible collisions caused by multiple '_'
-            .map(_.capitalize)
-            .mkString("")
-          a.head + c
-        case d =>
-          d.mkString("")
-      }
-
-
-      //      columnName.map(s => )
-      //      val position = columnName.indexOf("_")
       def code =
-        s"""    val ${columnName}: Rep[$actualType] = column[$actualType]("${model.name}"${options.map(", " + _).mkString("")})"""
-
-      //      println(code)
+        s"""    val ${model.name.toCamelCase.uncapitalize}: Rep[$actualType] = column[$actualType]("${model.name}"${options.map(", " + _).mkString("")})"""
     }
 
     class PrimaryKeyDef(model: m.PrimaryKey) extends super.PrimaryKeyDef(model) {

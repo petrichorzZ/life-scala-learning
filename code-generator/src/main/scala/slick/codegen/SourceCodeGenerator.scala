@@ -87,7 +87,8 @@ object SourceCodeGenerator {
     val db = dbFactory.forURL(url, driver = jdbcDriver,
       user = user.getOrElse(null), password = password.getOrElse(null), keepAliveConnection = true)
     try {
-      val m = Await.result(db.run(profileInstance.createModel(None, ignoreInvalidDefaults)(ExecutionContext.global).withPinnedSession), Duration.Inf)
+      val _m = Await.result(db.run(profileInstance.createModel(None, ignoreInvalidDefaults)(ExecutionContext.global).withPinnedSession), Duration.Inf)
+      val m = _m.copy(tables = _m.tables.filter(t => !t.name.table.startsWith("QRTZ_"))) //将quartz中的表过滤掉 不需要生成
       val codeGenerator = codeGeneratorClass.getOrElse("slick.codegen.SourceCodeGenerator")
       val sourceGeneratorClass = Class.forName(codeGenerator).asInstanceOf[Class[_ <: SourceCodeGenerator]]
       val generatorInstance = sourceGeneratorClass.getConstructor(classOf[Model]).newInstance(m)
