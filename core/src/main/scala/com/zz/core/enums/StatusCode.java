@@ -7,6 +7,8 @@ public enum StatusCode {
 
     CODE_200(200, "successful!"),
     CODE_400(400, "parameter failure."),
+    CODE_401(401, "unauthorized."),
+    CODE_403(403, "forbidden."),
     CODE_404(404, "resources not found."),
     CODE_500(500, "failure.");
 
