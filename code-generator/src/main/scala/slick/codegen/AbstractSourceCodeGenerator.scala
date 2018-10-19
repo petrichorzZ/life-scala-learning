@@ -278,18 +278,7 @@ ${result(rearranged)} // putting AutoInc last
 
       // Explicit type to allow overloading existing Slick method names.
       // Explicit type argument for better error message when implicit type mapper not found.
-      val columnName = model.name
-        .toLowerCase()
-        .split("_") match {
-        case a if a.length > 1 =>
-          val c = a.tail // avoid possible collisions caused by multiple '_'
-            .map(_.capitalize)
-            .mkString("")
-          a.head + c
-        case d =>
-          d.mkString("")
-      }
-
+      val columnName = model.name.toCamelCase.uncapitalize
 
       //      columnName.map(s => )
       //      val position = columnName.indexOf("_")

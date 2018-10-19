@@ -16,4 +16,25 @@ dependencies {
 
     // ioc
     compile "com.google.inject:guice:4.1.0"
+
+    // scala
+    compile "org.scala-lang:scala-library:${scalaVersion}"
+    compile "org.scala-lang:scala-reflect:${scalaVersion}"
+    compile "org.scala-lang:scala-compiler:${scalaVersion}"
+
+    // akka
+    compile "com.typesafe.akka:akka-actor_${scalaBinaryVersion}:${akkaVersion}"
+    compile "com.typesafe.akka:akka-http_${scalaBinaryVersion}:${akkaHttpVersion}"
+    compile "com.typesafe.akka:akka-stream_${scalaBinaryVersion}:${akkaVersion}"
+    compile "com.typesafe.akka:akka-cluster_${scalaBinaryVersion}:${akkaVersion}"
+    compile "com.typesafe.akka:akka-http-jackson_${scalaBinaryVersion}:${akkaHttpVersion}"
+    compile "com.typesafe.akka:akka-slf4j_${scalaBinaryVersion}:${akkaVersion}"
+
+    // json
+    compile "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+    compile "com.fasterxml.jackson.module:jackson-module-scala_${scalaBinaryVersion}:${jacksonVersion}"
+
+    // logging
+    compile "ch.qos.logback:logback-classic:${logbackVersion}"
+    compile "com.typesafe.scala-logging:scala-logging_${scalaBinaryVersion}:3.6.0"
 }
