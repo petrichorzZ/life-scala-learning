@@ -1,8 +1,0 @@
-dependencies {
-    // slick
-    compile "com.typesafe.slick:slick_${scalaBinaryVersion}:${slickVersion}"
-    compile "io.underscore:slickless_${scalaBinaryVersion}:${slicklessVersion}"
-    // datasource
-    compile "mysql:mysql-connector-java:${mysqlVersion}"
-    compile "com.zaxxer:HikariCP:${hikariCPVersion}"
-}

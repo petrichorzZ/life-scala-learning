@@ -1,5 +1,0 @@
-package mesosphere.jackson
-
-trait CaseClassModule extends CaseClassValueInstantiatorsModule
-
-object CaseClassModule extends CaseClassModule
